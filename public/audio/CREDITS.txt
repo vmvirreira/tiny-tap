@@ -1,5 +1,9 @@
 Tiny Tap animal sound credits
 
+"Peek-a-boo" by Nigel Ward
+Source: https://commons.wikimedia.org/wiki/File:Peek-a-boo.wav
+License: CC0 1.0 Universal Public Domain Dedication.
+
 "Single Cow Moo" by MichaeltheFox8621
 Source: https://commons.wikimedia.org/wiki/File:Single_Cow_Moo.ogg
 License: CC BY-SA / GNU Free Documentation License, as specified on the source page.

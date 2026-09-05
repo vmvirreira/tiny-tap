@@ -388,7 +388,7 @@ function Peekaboo({ muted }: { muted: boolean }) {
   const toggle = () => {
     const next = !open;
     setOpen(next);
-    if (next && !muted) playSound('success');
+    if (next && !muted) playSound('peekaboo');
   };
   return (
     <div className={`activity-stage peek-stage ${open ? 'open' : ''}`}>

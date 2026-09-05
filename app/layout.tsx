@@ -48,6 +48,27 @@ export default function RootLayout({
           as="audio"
           type="audio/mpeg"
         />
+        <link
+          rel="preload"
+          href="/audio/peekaboo.wav"
+          as="audio"
+          type="audio/wav"
+        />
+        <link
+          rel="preload"
+          href="/audio/star.wav"
+          as="audio"
+          type="audio/wav"
+        />
+        {[262, 330, 392, 523, 659].map((note) => (
+          <link
+            key={note}
+            rel="preload"
+            href={`/audio/note-${note}.wav`}
+            as="audio"
+            type="audio/wav"
+          />
+        ))}
       </head>
       <body className={`${heading.variable} ${body.variable}`}>{children}</body>
     </html>

@@ -8,7 +8,7 @@ const body = Nunito({ variable: '--font-body', subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Tiny Tap — Little games for growing minds',
   description:
-    'Ten gentle, playful mini-games for babies and toddlers from 6 months to 2+ years.',
+    'Sixty gentle, playful mini-games for babies and toddlers from 6 months to 2+ years.',
 };
 
 export const viewport: Viewport = {

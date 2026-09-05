@@ -1,4 +1,4 @@
-type SoundName =
+export type SoundName =
   | 'pop'
   | 'paint'
   | 'star'
@@ -14,6 +14,7 @@ type SoundName =
   | 'horse'
   | 'rooster'
   | 'peekaboo';
+export type AudioKey = SoundName | 'piano';
 type AudioSessionNavigator = Navigator & {
   audioSession?: {
     type: 'ambient' | 'playback' | 'transient' | 'transient-solo';
@@ -53,14 +54,26 @@ let unlocked = false;
 let context: AudioContext | null = null;
 const raw = new Map<string, Promise<ArrayBuffer>>();
 const decoded = new Map<string, AudioBuffer>();
+let overrides: Record<string, string> = {};
 
 function sourceFor(file: string) {
+  if (overrides[file]) return overrides[file];
   if (file === 'peekaboo') return '/audio/peekaboo-wikimedia.wav';
   if (file === 'piano') return lowLatencyFiles.piano;
   if (file === 'drum') return lowLatencyFiles.drum;
   if (file === 'clap') return lowLatencyFiles.clap;
   if (animalFiles.has(file as AnimalSound)) return `/audio/${file}-real.mp3`;
   return `/audio/${file}.wav`;
+}
+
+export function setAudioOverrides(next: Record<string, string>) {
+  overrides = { ...next };
+  bank.forEach((audio) => audio.pause());
+  bank.clear();
+  raw.clear();
+  decoded.clear();
+  preloadAudio();
+  void decodeBuffers().catch(() => undefined);
 }
 
 function isAnimalSound(name: SoundName): name is AnimalSound {
@@ -96,7 +109,8 @@ function setPlaybackRoute() {
 
 function preloadBuffers() {
   if (typeof window === 'undefined') return;
-  Object.entries(lowLatencyFiles).forEach(([name, url]) => {
+  Object.keys(lowLatencyFiles).forEach((name) => {
+    const url = sourceFor(name);
     if (!raw.has(name))
       raw.set(
         name,
@@ -233,7 +247,7 @@ function playBuffer(
 
 export function playTone(frequency: number, _duration = 0.25, volume = 0.72) {
   const rate = frequency / 262;
-  if (!playBuffer('piano', rate, volume))
+  if (overrides.piano || !playBuffer('piano', rate, volume))
     playMedia('piano', volume, rate, 1400);
 }
 
@@ -244,11 +258,15 @@ export function playSound(name: SoundName) {
     return;
   }
   if (name === 'drum' || name === 'clap') {
-    if (!playBuffer(name, 1, name === 'drum' ? 0.8 : 0.68))
+    if (!overrides[name] && playBuffer(name, 1, name === 'drum' ? 0.8 : 0.68)) return;
       playMedia(name, 0.72, 1, 900);
     return;
   }
   if (name === 'star' || name === 'success') {
+    if (overrides[name]) {
+      playMedia(name, 0.68);
+      return;
+    }
     const ready =
       playBuffer('piano', 2, 0.55) &&
       playBuffer('piano', 2.52, 0.42, 0.07) &&

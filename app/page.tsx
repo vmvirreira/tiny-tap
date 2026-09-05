@@ -12,17 +12,21 @@ import {
   X,
 } from 'lucide-react';
 import { playSound, playTone, preloadAudio, unlockAudio } from '@/lib/audio';
+import { bonusGames, type AgeId, type BonusGameConfig } from '@/lib/bonus-games';
+import { BonusGame } from '@/components/bonus-game';
+import { SoundStudio } from '@/components/sound-studio';
 
 type Game = {
   id: string;
-  age: '6m' | '9m' | '12m' | '18m' | '24m';
+  age: AgeId;
   title: string;
   prompt: string;
   icon: string;
   color: string;
   skill: string;
+  bonus?: BonusGameConfig;
 };
-const games: Game[] = [
+const originalGames: Game[] = [
   {
     id: 'color',
     age: '6m',
@@ -114,6 +118,10 @@ const games: Game[] = [
     skill: 'Memory & rhythm',
   },
 ];
+const games: Game[] = [
+  ...originalGames,
+  ...bonusGames.map((game) => ({ ...game, bonus: game })),
+];
 const ages = [
   { id: 'all', label: 'All play' },
   { id: '6m', label: '6+ months' },
@@ -186,8 +194,8 @@ export default function Home() {
             <em>discover.</em>
           </h1>
           <p>
-            Ten gentle mini-games made for curious fingers — no ads, no scores,
-            just play.
+            Sixty gentle mini-games made for curious fingers — no ads, no pressure,
+            just playful discovery.
           </p>
         </div>
         <div className="intro-orbit" aria-hidden="true">
@@ -256,7 +264,7 @@ export default function Home() {
       )}
       {showNote && (
         <dialog open className="dialog-backdrop">
-          <section className="grownup-note" aria-labelledby="grownup-title">
+          <section className="grownup-note grownup-panel" aria-labelledby="grownup-title">
             <button
               className="dialog-close"
               onClick={() => setShowNote(false)}
@@ -275,6 +283,7 @@ export default function Home() {
               <li>Ages are friendly suggestions, not milestones.</li>
               <li>For babies, place the device on a steady surface.</li>
             </ul>
+            <SoundStudio />
             <button className="note-done" onClick={() => setShowNote(false)}>
               Let’s play
             </button>
@@ -327,11 +336,13 @@ function Playroom({
           </button>
         </div>
       </div>
-      <GameStage key={resetKey} id={game.id} muted={muted} />
+      <GameStage key={resetKey} game={game} muted={muted} />
     </dialog>
   );
 }
-function GameStage({ id, muted }: { id: string; muted: boolean }) {
+function GameStage({ game, muted }: { game: Game; muted: boolean }) {
+  const id = game.id;
+  if (game.bonus) return <BonusGame game={game.bonus} muted={muted} />;
   if (id === 'color') return <ColorSplash muted={muted} />;
   if (id === 'peekaboo') return <Peekaboo muted={muted} />;
   if (id === 'animals') return <Animals muted={muted} />;

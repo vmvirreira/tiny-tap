@@ -50,6 +50,30 @@ export default function RootLayout({
         />
         <link
           rel="preload"
+          href="/audio/cat-real.mp3"
+          as="audio"
+          type="audio/mpeg"
+        />
+        <link
+          rel="preload"
+          href="/audio/dog-real.mp3"
+          as="audio"
+          type="audio/mpeg"
+        />
+        <link
+          rel="preload"
+          href="/audio/horse-real.mp3"
+          as="audio"
+          type="audio/mpeg"
+        />
+        <link
+          rel="preload"
+          href="/audio/rooster-real.mp3"
+          as="audio"
+          type="audio/mpeg"
+        />
+        <link
+          rel="preload"
           href="/audio/peekaboo-female.mp3"
           as="audio"
           type="audio/mpeg"

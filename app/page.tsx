@@ -418,6 +418,15 @@ function Animals({ muted }: { muted: boolean }) {
     { icon: '🐑', name: 'Sheep', sound: 'Baaaa!', audio: 'sheep' },
     { icon: '🐥', name: 'Duck', sound: 'Quack quack!', audio: 'duck' },
     { icon: '🐷', name: 'Pig', sound: 'Oink oink!', audio: 'pig' },
+    { icon: '🐱', name: 'Cat', sound: 'Meow!', audio: 'cat' },
+    { icon: '🐶', name: 'Dog', sound: 'Woof woof!', audio: 'dog' },
+    { icon: '🐴', name: 'Horse', sound: 'Neigh!', audio: 'horse' },
+    {
+      icon: '🐓',
+      name: 'Rooster',
+      sound: 'Cock-a-doodle-doo!',
+      audio: 'rooster',
+    },
   ] as const;
   const [message, setMessage] = useState('Tap an animal');
   return (

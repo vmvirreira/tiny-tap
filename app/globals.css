@@ -944,17 +944,22 @@ footer a {
     font-size: 0.85rem;
   }
   .animal-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 9px;
   }
   .animal-stage {
     padding: 20px;
   }
   .animal-grid button {
-    aspect-ratio: 1.15;
+    aspect-ratio: 0.9;
+    border-radius: 20px;
+    box-shadow: 3px 4px 0 var(--line);
   }
   .animal-grid span {
-    font-size: 4.2rem;
+    font-size: clamp(2.5rem, 13vw, 4.2rem);
+  }
+  .animal-grid strong {
+    font-size: 0.9rem;
   }
   .music-row {
     gap: 7px;

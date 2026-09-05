@@ -394,7 +394,7 @@ function Peekaboo({ muted }: { muted: boolean }) {
     <div className={`activity-stage peek-stage ${open ? 'open' : ''}`}>
       <button
         className="peek-tap"
-        onClick={toggle}
+        onPointerDown={toggle}
         aria-label={open ? 'Hide friend' : 'Show friend'}
       />
       <span className="curtain left" />
@@ -427,7 +427,7 @@ function Animals({ muted }: { muted: boolean }) {
         {animals.map((animal) => (
           <button
             key={animal.name}
-            onClick={() => {
+            onPointerDown={() => {
               setMessage(`${animal.name} says ${animal.sound}`);
               if (!muted) playSound(animal.audio);
             }}
@@ -548,7 +548,7 @@ function Music({ muted }: { muted: boolean }) {
           <button
             key={note}
             style={{ background: palette[i] }}
-            onClick={() => {
+            onPointerDown={() => {
               if (!muted) playTone(note, 0.62);
             }}
           >
@@ -574,7 +574,7 @@ function CatchStar({ muted }: { muted: boolean }) {
         aria-label="Catch the star"
         className="catch-star"
         style={{ left: `${position.x}%`, top: `${position.y}%` }}
-        onClick={move}
+        onPointerDown={move}
       >
         ⭐
       </button>
@@ -661,7 +661,13 @@ function AppleBasket({ muted }: { muted: boolean }) {
 }
 function CopyBeat({ muted }: { muted: boolean }) {
   const [step, setStep] = useState(0);
-  const beat = [0, 1, 0, 0];
+  const [beat] = useState(() => {
+    const pattern = Array.from({ length: 4 }, () =>
+      Math.random() < 0.5 ? 0 : 1,
+    );
+    if (new Set(pattern).size === 1) pattern[3] = pattern[0] === 0 ? 1 : 0;
+    return pattern;
+  });
   const tap = (side: number) => {
     if (!muted) playSound(side ? 'clap' : 'drum');
     if (side === beat[step]) setStep(step + 1);
@@ -685,10 +691,10 @@ function CopyBeat({ muted }: { muted: boolean }) {
         ))}
       </div>
       <div className="drums">
-        <button onClick={() => tap(0)}>
+        <button onPointerDown={() => tap(0)}>
           🥁<small>drum</small>
         </button>
-        <button onClick={() => tap(1)}>
+        <button onPointerDown={() => tap(1)}>
           👏<small>clap</small>
         </button>
       </div>

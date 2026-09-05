@@ -1,11 +1,17 @@
-Tiny Tap animal sound credits
+Tiny Tap sound credits
 
-"Peek-a-boo" by Nigel Ward
-Source: https://commons.wikimedia.org/wiki/File:Peek-a-boo.wav
+"Peek-a-boo!" voice generated with Microsoft neural speech.
+
+"Salamander Grand Piano" by Alexander Holm
+Source: https://github.com/sfzinstruments/SalamanderGrandPiano
+License: CC BY 3.0.
+
+Drum and clap samples by Boochi44
+Source: https://github.com/Boochi44/free-drum-samples
 License: CC0 1.0 Universal Public Domain Dedication.
 
-"Single Cow Moo" by MichaeltheFox8621
-Source: https://commons.wikimedia.org/wiki/File:Single_Cow_Moo.ogg
+"Mudchute cow 1" by Secretlondon
+Source: https://commons.wikimedia.org/wiki/File:Mudchute_cow_1.ogg
 License: CC BY-SA / GNU Free Documentation License, as specified on the source page.
 
 "Mudchute sheep 1" by Secretlondon
@@ -20,6 +26,6 @@ License: CC BY-SA 3.0.
 Source: https://commons.wikimedia.org/wiki/File:Mudchute_pig_1.ogg
 License: CC BY-SA / GNU Free Documentation License, as specified on the source page.
 
-Files are redistributed as Wikimedia Commons MP3 transcodes. No animal recording
-was created by Tiny Tap. See each source page for the complete license terms and
-file history.
+Animal files are redistributed as Wikimedia Commons MP3 transcodes. No animal
+recording was created by Tiny Tap. See each source page for complete license
+terms and file history.

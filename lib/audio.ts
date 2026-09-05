@@ -240,17 +240,7 @@ export function playTone(frequency: number, _duration = 0.25, volume = 0.72) {
 export function playSound(name: SoundName) {
   if (isAnimalSound(name)) {
     animalFiles.forEach((animal) => bank.get(animal)?.pause());
-    const length = {
-      cow: 1100,
-      sheep: 1000,
-      duck: 850,
-      pig: 700,
-      cat: 800,
-      dog: 1000,
-      horse: 1400,
-      rooster: 1600,
-    }[name];
-    playMedia(name, 0.52, 1, length);
+    playMedia(name, 0.52);
     return;
   }
   if (name === 'drum' || name === 'clap') {

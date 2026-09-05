@@ -55,7 +55,7 @@ const raw = new Map<string, Promise<ArrayBuffer>>();
 const decoded = new Map<string, AudioBuffer>();
 
 function sourceFor(file: string) {
-  if (file === 'peekaboo') return '/audio/peekaboo-female.mp3';
+  if (file === 'peekaboo') return '/audio/peekaboo-wikimedia.wav';
   if (file === 'piano') return lowLatencyFiles.piano;
   if (file === 'drum') return lowLatencyFiles.drum;
   if (file === 'clap') return lowLatencyFiles.clap;

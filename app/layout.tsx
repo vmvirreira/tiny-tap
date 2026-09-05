@@ -74,9 +74,9 @@ export default function RootLayout({
         />
         <link
           rel="preload"
-          href="/audio/peekaboo-female.mp3"
+          href="/audio/peekaboo-wikimedia.wav"
           as="audio"
-          type="audio/mpeg"
+          type="audio/wav"
         />
         <link
           rel="preload"

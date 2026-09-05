@@ -1,6 +1,9 @@
 Tiny Tap sound credits
 
-"Peek-a-boo!" voice generated with Microsoft neural speech.
+"Peek-a-boo" by Flame, not lame
+Source: https://commons.wikimedia.org/wiki/File:LL-Q1860_(eng)-Flame,_not_lame-peek-a-boo_bra.wav
+License: CC0 1.0 Universal Public Domain Dedication.
+The source recording was trimmed after "peek-a-boo" and given a short fade-out.
 
 "Salamander Grand Piano" by Alexander Holm
 Source: https://github.com/sfzinstruments/SalamanderGrandPiano

@@ -11,7 +11,7 @@ import {
   VolumeX,
   X,
 } from 'lucide-react';
-import { playSound, playTone, unlockAudio } from '@/lib/audio';
+import { playSound, playTone, preloadAudio, unlockAudio } from '@/lib/audio';
 
 type Game = {
   id: string;
@@ -145,6 +145,7 @@ export default function Home() {
     };
   }, [active]);
   useEffect(() => {
+    preloadAudio();
     document.addEventListener('pointerdown', unlockAudio, true);
     document.addEventListener('touchend', unlockAudio, true);
     return () => {
@@ -241,6 +242,9 @@ export default function Home() {
       </section>
       <footer>
         <Heart fill="currentColor" /> Made for little hands and shared moments.
+        <a href="/audio/CREDITS.txt" target="_blank" rel="noreferrer">
+          Sound credits
+        </a>
       </footer>
       {active && (
         <Playroom

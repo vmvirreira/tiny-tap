@@ -307,6 +307,11 @@ footer svg {
   width: 18px;
   color: #ff6b6b;
 }
+footer a {
+  color: inherit;
+  margin-left: 8px;
+  text-underline-offset: 3px;
+}
 .dialog-backdrop {
   position: fixed;
   inset: 0;

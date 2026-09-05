@@ -17,18 +17,28 @@ type AudioSessionNavigator = Navigator & {
 };
 
 const noteFiles = [262, 330, 370, 392, 440, 510, 523, 580, 650, 659];
-let player: HTMLAudioElement | null = null;
+const animalFiles = new Set(['cow', 'sheep', 'duck', 'pig']);
+const bank = new Map<string, HTMLAudioElement>();
 let unlocked = false;
 
-function getPlayer() {
+function sourceFor(file: string) {
+  return animalFiles.has(file)
+    ? `/audio/${file}-real.mp3`
+    : `/audio/${file}.wav`;
+}
+
+function getPlayer(file: string) {
   if (typeof window === 'undefined') return null;
-  if (!player) {
-    player = new Audio('/audio/unlock.wav');
-    player.preload = 'auto';
-    player.setAttribute('playsinline', '');
-    player.setAttribute('webkit-playsinline', '');
-  }
-  return player;
+  const existing = bank.get(file);
+  if (existing) return existing;
+
+  const audio = new Audio(sourceFor(file));
+  audio.preload = 'auto';
+  audio.setAttribute('playsinline', '');
+  audio.setAttribute('webkit-playsinline', '');
+  bank.set(file, audio);
+  audio.load();
+  return audio;
 }
 
 function setPlaybackRoute() {
@@ -41,17 +51,32 @@ function setPlaybackRoute() {
   }
 }
 
-/**
- * Activates one reusable HTML media element during a direct touch event.
- * Unlike Web Audio, this route remains audible on iPhones using the silent
- * switch and avoids Safari's suspended/interrupted AudioContext failure mode.
- */
+/** Starts fetching and decoding the small sound bank before the first game tap. */
+export function preloadAudio() {
+  const effects = [
+    'unlock',
+    'pop',
+    'paint',
+    'star',
+    'drum',
+    'clap',
+    'cow',
+    'sheep',
+    'duck',
+    'pig',
+  ];
+  [...effects, ...noteFiles.map((note) => `note-${note}`)].forEach(getPlayer);
+}
+
+/** Activates iPhone's media playback route during a direct touch event. */
 export function unlockAudio() {
   setPlaybackRoute();
-  const audio = getPlayer();
+  preloadAudio();
+  const audio = getPlayer('unlock');
   if (!audio || unlocked) return;
+  audio.currentTime = 0;
   const attempt = audio.play();
-  if (attempt) {
+  if (attempt)
     void attempt
       .then(() => {
         unlocked = true;
@@ -59,30 +84,24 @@ export function unlockAudio() {
       .catch(() => {
         unlocked = false;
       });
-  }
 }
 
 function playFile(file: string, volume = 0.72) {
   setPlaybackRoute();
-  const audio = getPlayer();
+  const audio = getPlayer(file);
   if (!audio) return;
-
   audio.pause();
-  audio.src = `/audio/${file}.wav`;
   audio.currentTime = 0;
   audio.volume = volume;
   const attempt = audio.play();
-  if (attempt) {
+  if (attempt)
     void attempt
       .then(() => {
         unlocked = true;
       })
       .catch(() => {
-        // A later direct tap retries automatically; never leave a rejected
-        // promise uncaught in Safari.
         unlocked = false;
       });
-  }
 }
 
 export function playTone(frequency: number, _duration = 0.25, volume = 0.72) {

@@ -1,0 +1,21 @@
+Tiny Tap animal sound credits
+
+"Single Cow Moo" by MichaeltheFox8621
+Source: https://commons.wikimedia.org/wiki/File:Single_Cow_Moo.ogg
+License: CC BY-SA / GNU Free Documentation License, as specified on the source page.
+
+"Mudchute sheep 1" by Secretlondon
+Source: https://commons.wikimedia.org/wiki/File:Mudchute_sheep_1.ogg
+License: CC BY-SA / GNU Free Documentation License, as specified on the source page.
+
+"Anas platyrhynchos - Mallard - XC62258" by Jonathon Jongsma
+Source: https://commons.wikimedia.org/wiki/File:Anas_platyrhynchos_-_Mallard_-_XC62258.ogg
+License: CC BY-SA 3.0.
+
+"Mudchute pig 1" by Secretlondon
+Source: https://commons.wikimedia.org/wiki/File:Mudchute_pig_1.ogg
+License: CC BY-SA / GNU Free Documentation License, as specified on the source page.
+
+Files are redistributed as Wikimedia Commons MP3 transcodes. No animal recording
+was created by Tiny Tap. See each source page for the complete license terms and
+file history.

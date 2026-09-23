@@ -38,7 +38,7 @@ export function SoundStudio() {
     const client = supabase;
     if (!client) return;
     const { data: sessionData } = await client.auth.getSession();
-    const response = await fetch('/api/audio', { headers: { Authorization: `Bearer ${sessionData.session?.access_token ?? ''}` } });
+    const response = await fetch('/api/audio/', { headers: { Authorization: `Bearer ${sessionData.session?.access_token ?? ''}` } });
     if (!response.ok) { setStatus('Your sound library could not be loaded.'); return; }
     const next = (await response.json()) as Record<string, string>;
     setCustom(next); setAudioOverrides(next);
@@ -75,7 +75,7 @@ export function SoundStudio() {
     if (file.size > 8 * 1024 * 1024) { setStatus('Please choose a sound smaller than 8 MB.'); return; }
     setStatus(`Uploading ${file.name}…`);
     const { data: sessionData } = await supabase.auth.getSession();
-    const response = await fetch('/api/audio', { method: 'POST', headers: { Authorization: `Bearer ${sessionData.session?.access_token ?? ''}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ key, contentType: file.type || 'audio/mpeg' }) });
+    const response = await fetch('/api/audio/', { method: 'POST', headers: { Authorization: `Bearer ${sessionData.session?.access_token ?? ''}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ key, contentType: file.type || 'audio/mpeg' }) });
     const ticket = await response.json().catch(() => null) as { error?: string; path?: string; token?: string } | null;
     if (!response.ok || !ticket?.path || !ticket.token) { setStatus(ticket?.error ?? 'That sound could not be uploaded.'); return; }
     const { error } = await supabase.storage.from('tiny-tap-audio').uploadToSignedUrl(ticket.path, ticket.token, file, { contentType: file.type || 'audio/mpeg', cacheControl: '3600' });
@@ -86,7 +86,7 @@ export function SoundStudio() {
   const reset = async (key: AudioKey) => {
     if (!supabase || !user) return;
     const { data: sessionData } = await supabase.auth.getSession();
-    const response = await fetch('/api/audio', { method: 'DELETE', headers: { Authorization: `Bearer ${sessionData.session?.access_token ?? ''}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ key }) });
+    const response = await fetch('/api/audio/', { method: 'DELETE', headers: { Authorization: `Bearer ${sessionData.session?.access_token ?? ''}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ key }) });
     if (!response.ok) { setStatus('That sound could not be restored.'); return; }
     const next = { ...custom }; delete next[key]; setCustom(next); setAudioOverrides(next); setStatus('Original sound restored.');
   };

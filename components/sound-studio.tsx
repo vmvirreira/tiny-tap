@@ -59,7 +59,10 @@ export function SoundStudio() {
   const sendLink = async () => {
     if (!supabase || !email.trim()) return;
     setStatus('Sending your secure sign-in link…');
-    const { error } = await supabase.auth.signInWithOtp({ email: email.trim(), options: { emailRedirectTo: window.location.origin } });
+    const returnTo = window.location.pathname.startsWith('/tiny-tap')
+      ? new URL('/tiny-tap/', window.location.origin).href
+      : window.location.origin;
+    const { error } = await supabase.auth.signInWithOtp({ email: email.trim(), options: { emailRedirectTo: returnTo } });
     if (error) { setStatus(error.message); return; }
     setSent(true); setStatus('Check your email, then return here.');
   };
